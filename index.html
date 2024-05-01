@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Functions Tester</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>String Functions Tester</h2>
+        <div class="form-group">
+            <label for="inputString">Enter a string:</label>
+            <input type="text" class="form-control" id="inputString">
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <button onclick="testStringLength()" class="btn btn-danger mt-2">Get Length</button>
+        <button onclick="testConcatenateStrings()" class="btn btn-primary mt-2">Concatenate</button>
+        <button onclick="testIsEmptyString()" class="btn btn-danger mt-2">Is Empty</button>
+        <button onclick="testCountVowels()" class="btn btn-primary mt-2">Count Vowels</button>
+        <button onclick="testReverseString()" class="btn btn-danger mt-2">Reverse</button>
+        <button onclick="testIsPalindrome()" class="btn btn-primary mt-2">Is Palindrome</button>
+        <button onclick="testToUpperCase()" class="btn btn-danger mt-2">To Uppercase</button>
+        <button onclick="testIndexOfChar()" class="btn btn-primary mt-2">Index Of</button>
+        <button onclick="testReplaceChar()" class="btn btn-danger mt-2">Replace Char</button>
+        <button onclick="testTrimString()" class="btn btn-primary mt-2">Trim</button>
+        <button onclick="testCountWords()" class="btn btn-danger mt-2">Count Words</button>
+        <button onclick="testIsNumeric()" class="btn btn-primary mt-2">Is Numeric</button>
+        <button onclick="testIsValidEmail()" class="btn btn-danger mt-2">Is Valid Email</button>
+        <button onclick="testExtractDomain()" class="btn btn-primary mt-2">Extract Domain</button>
+        <button onclick="testToTitleCase()" class="btn btn-danger mt-2">To Title Case</button>
+        <button onclick="testRemoveNonAlphabetic()" class="btn btn-primary mt-2">Remove Non-Alphabetic</button>
+        <button onclick="testIsPalindromePermutation()" class="btn btn-danger mt-2">Is Palindrome Permutation</button>
+        <button onclick="testIsAnagram()" class="btn btn-primary mt-2">Is Anagram</button>
+        <button onclick="testLongestWord()" class="btn btn-danger mt-2">Longest Word</button>
+        <button onclick="testCompressString()" class="btn btn-primary mt-2">Compress String</button>
+    </div>
+
+    <div id="output" class="container mt-3"></div>
+
+    <script>
+        function stringLength(str) {
+            return str.length;
+        }
+
+        function concatenateStrings(str1, str2) {
+            return str1 + str2;
+        }
+
+        function isEmptyString(str) {
+            return str.trim() === '';
+        }
+
+        function countVowels(str) {
+            const vowels = 'aeiouAEIOU';
+            let count = 0;
+            for (let char of str) {
+                if (vowels.includes(char)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        function reverseString(str) {
+            return str.split('').reverse().join('');
+        }
+
+        function isPalindrome(str) {
+            const reversedStr = str.split('').reverse().join('');
+            return str === reversedStr;
+        }
+
+        function toUpperCase(str) {
+            return str.toUpperCase();
+        }
+
+        function indexOfChar(str, char) {
+            return str.indexOf(char);
+        }
+
+        function replaceChar(str, charToReplace, replacementChar) {
+            return str.split(charToReplace).join(replacementChar);
+        }
+
+        function trimString(str) {
+            return str.trim();
+        }
+
+        function countWords(str) {
+            return str.split(/\s+/).filter(word => word !== '').length;
+        }
+
+        function isNumeric(str) {
+            return /^\d+$/.test(str);
+        }
+
+        function isValidEmail(str) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+        }
+
+        function extractDomain(url) {
+            return url.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1];
+        }
+
+        function toTitleCase(str) {
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        function removeNonAlphabetic(str) {
+            return str.replace(/[^a-zA-Z]/g, '');
+        }
+
+        function isPalindromePermutation(str) {
+            const charCount = {};
+            for (let char of str.replace(/\s/g, '')) {
+                charCount[char] = (charCount[char] || 0) + 1;
+            }
+            let oddCount = 0;
+            for (let count of Object.values(charCount)) {
+                if (count % 2 !== 0) {
+                    oddCount++;
+                }
+            }
+            return oddCount <= 1;
+        }
+
+        function isAnagram(str1, str2) {
+            const sortedStr1 = str1.toLowerCase().split('').sort().join('');
+            const sortedStr2 = str2.toLowerCase().split('').sort().join('');
+            return sortedStr1 === sortedStr2;
+        }
+
+        function longestWord(str) {
+            const words = str.split(/\s+/);
+            let longest = '';
+            for (let word of words) {
+                if (word.length > longest.length) {
+                    longest = word;
+                }
+            }
+            return longest;
+        }
+
+        function compressString(str) {
+            let compressed = '';
+            let count = 1;
+            for (let i = 0; i < str.length; i++) {
+                if (str[i] === str[i + 1]) {
+                    count++;
+                } else {
+                    compressed += str[i] + count;
+                    count = 1;
+                }
+            }
+            return compressed.length < str.length ? compressed : str;
+        }
+
+        function testStringLength() {
+            const inputString = document.getElementById('inputString').value;
+            const result = stringLength(inputString);
+            alert(`Length of the string is: ${result}`);
+        }
+
+        function testConcatenateStrings() {
+            const inputString = document.getElementById('inputString').value;
+            const result = concatenateStrings(inputString, " World");
+            alert(`Concatenated string is: ${result}`);
+        }
+
+        function testIsEmptyString() {
+            const inputString = document.getElementById('inputString').value;
+            const result = isEmptyString(inputString);
+            alert(`Is the string empty: ${result}`);
+        }
+
+        function testCountVowels() {
+            const inputString = document.getElementById('inputString').value;
+            const result = countVowels(inputString);
+            alert(`Number of vowels in the string: ${result}`);
+        }
+
+        function testReverseString() {
+            const inputString = document.getElementById('inputString').value;
+            const result = reverseString(inputString);
+            alert(`Reversed string is: ${result}`);
+        }
+
+        function testIsPalindrome() {
+            const inputString = document.getElementById('inputString').value;
+            const result = isPalindrome(inputString);
+            alert(`Is the string a palindrome: ${result}`);
+        }
+
+        function testToUpperCase() {
+            const inputString = document.getElementById('inputString').value;
+            const result = toUpperCase(inputString);
+            alert(`Uppercase string is: ${result}`);
+        }
+
+        function testIndexOfChar() {
+            const inputString = document.getElementById('inputString').value;
+            const charToFind = prompt("Enter the character to find:");
+            const result = indexOfChar(inputString, charToFind);
+            alert(`Index of character '${charToFind}' in the string: ${result}`);
+        }
+
+        function testReplaceChar() {
+            const inputString = document.getElementById('inputString').value;
+            const charToReplace = prompt("Enter the character to replace:");
+            const replacementChar = prompt("Enter the replacement character:");
+            const result = replaceChar(inputString, charToReplace, replacementChar);
+            alert(`String after replacement: ${result}`);
+        }
+
+        function testTrimString() {
+            const inputString = document.getElementById('inputString').value;
+            const result = trimString(inputString);
+            alert(`Trimmed string is: "${result}"`);
+        }
+
+        function testCountWords() {
+            const inputString = document.getElementById('inputString').value;
+            const result = countWords(inputString);
+            alert(`Number of words in the string: ${result}`);
+        }
+
+        function testIsNumeric() {
+            const inputString = document.getElementById('inputString').value;
+            const result = isNumeric(inputString);
+            alert(`Is the string numeric: ${result}`);
+        }
+
+        function testIsValidEmail() {
+            const inputString = document.getElementById('inputString').value;
+            const result = isValidEmail(inputString);
+            alert(`Is the string a valid email address: ${result}`);
+        }
+
+        function testExtractDomain() {
+            const inputString = document.getElementById('inputString').value;
+            const result = extractDomain(inputString);
+            alert(`Domain name from URL: ${result}`);
+        }
+
+        function testToTitleCase() {
+            const inputString = document.getElementById('inputString').value;
+            const result = toTitleCase(inputString);
+            alert(`Title cased string is: "${result}"`);
+        }
+
+        function testRemoveNonAlphabetic() {
+            const inputString = document.getElementById('inputString').value;
+            const result = removeNonAlphabetic(inputString);
+            alert(`String after removing non-alphabetic characters: "${result}"`);
+        }
+
+        function testIsPalindromePermutation() {
+            const inputString = document.getElementById('inputString').value;
+            const result = isPalindromePermutation(inputString);
+            alert(`Is the string a valid palindrome permutation: ${result}`);
+        }
+
+        function testIsAnagram() {
+            const inputString = document.getElementById('inputString').value;
+            const otherString = prompt("Enter the other string to compare:");
+            const result = isAnagram(inputString, otherString);
+            alert(`Are the strings anagrams: ${result}`);
+        }
+
+        function testLongestWord() {
+            const inputString = document.getElementById('inputString').value;
+            const result = longestWord(inputString);
+            alert(`Longest word in the string: "${result}"`);
+        }
+
+        function testCompressString() {
+            const inputString = document.getElementById('inputString').value;
+            const result = compressString(inputString);
+            alert(`Compressed string is: "${result}"`);
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
